@@ -1,34 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.scss'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { Home } from "./views/Home"
+import { Toplist } from './views/Toplist'
+import { AppleAudio } from './components/AppleAudio'
+import { useState } from 'react'
+import { getSongUrlById } from './axios/request'
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
+  const [state, setState] = useState({
+    name: "apple",
+    au: "apple",
+    src: "",
+    img: ""
+  })
+  function playmusic(id: any, info: Song) {
+
+    getSongUrlById(+id).then(res => {
+      // res.data
+
+      let src = res.data.data[0].url
+      setState({
+        src,
+        name: info.name,
+        au: info.ar[0].name,
+        img: info.al.picUrl
+      })
+    })
+  }
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+
+    <div id='app'>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/toplist/:id" element={<Toplist onClick={(id: any, info: Song) => playmusic(id, info)} />} />
+        </Routes>
+      </Router>
+
+      <AppleAudio value={state} ></AppleAudio>
     </div>
+
   )
 }
 
