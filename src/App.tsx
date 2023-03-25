@@ -10,7 +10,8 @@ import { SearchResult } from "./views/SearchResult";
 import { Tabbar } from "./components/TabBar";
 import { useStore } from "./store";
 import { observer } from "mobx-react-lite";
-import { Me } from "../src/views/Me";
+import { Me } from "@/views/Me";
+import { PlayList } from "./views/PlayList";
 function App() {
   const [state, setState] = useState({
     name: "apple",
@@ -55,6 +56,7 @@ function App() {
             }
           />
           <Route path="/me" element={<Me />} />
+          <Route path="/playlist" element={<PlayList />} />
         </Routes>
         <div className="app-placeholder"></div>
         <div className="app-placeholder"></div>

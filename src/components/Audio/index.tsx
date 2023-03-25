@@ -46,7 +46,7 @@ export const Audio: React.FC<any> = (props) => {
 
   const [toggle, setToggle] = useState<boolean>(true);
   const [progress, setProgress] = useState<number>(0);
-  const [volume, setVolume] = useState<number>(80);
+  const [volume, setVolume] = useState<number>(() => musicStore.volume);
   const [isshowVolumeControl, setIsShowVolumeControl] =
     useState<boolean>(false);
   const [duration, setDuration] = useState<string>("00 : 00");
@@ -56,6 +56,7 @@ export const Audio: React.FC<any> = (props) => {
   }
   useLayoutEffect(() => {
     if (audioRef.current && src) {
+      musicStore.setAudioRef(audioRef.current);
       audioRef.current.addEventListener("play", (e: Event) => {
         const pid = (e.target as HTMLAudioElement).getAttribute("pid");
         const audios = document.querySelectorAll("audio");
@@ -70,6 +71,7 @@ export const Audio: React.FC<any> = (props) => {
         const duration = transTime(
           (e.target as HTMLAudioElement).duration as number
         );
+
         setDuration(duration);
       });
       audioRef.current.addEventListener("ended", (e) => {
@@ -92,7 +94,6 @@ export const Audio: React.FC<any> = (props) => {
     }
     return () => {};
   }, [src]);
-
   useEffect(() => {
     if (dotRef.current && src) {
       const position = {
@@ -177,9 +178,6 @@ export const Audio: React.FC<any> = (props) => {
       barBgRef.current?.addEventListener("touchend", end, false);
     }
   }, [src]);
-  useEffect(() => {
-    audioRef.current && (audioRef.current.volume = 80 / 100);
-  }, []);
   const handlePaly = () => {
     if (toggle && src) {
       audioRef.current?.play();
@@ -271,6 +269,7 @@ export const Audio: React.FC<any> = (props) => {
   }, [volume]);
   function onvolumechange(e: React.ChangeEvent<HTMLInputElement>) {
     setVolume(Number(e.target.value));
+    musicStore.setVolume(Number(e.target.value));
   }
   function showVolumeControl() {
     return (
@@ -294,7 +293,6 @@ export const Audio: React.FC<any> = (props) => {
         src={src}
         preload="metadata"
         ref={audioRef}
-        autoPlay
       >
         您的浏览器不支持 audio 标签
       </audio>

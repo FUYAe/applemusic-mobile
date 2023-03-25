@@ -3,17 +3,6 @@
 import { musicStore, MusicStore } from "./music"
 import React from "react"
 import { makeAutoObservable, runInAction } from "mobx"
-function getMsg(msg: string, type: string) {
-  if (type === "success") {
-
-    return `<span style='color:red'>${msg}</span>`
-  } else if (type === "warning") {
-    return `<span style='color:blue'>${msg}</span>`
-  }
-  return `<span >${msg}</span>`
-}
-
-
 
 class Store {
   msg = ""

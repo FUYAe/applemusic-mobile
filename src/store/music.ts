@@ -1,29 +1,67 @@
 
 import { makeAutoObservable, runInAction } from "mobx"
 import { getSongUrlById } from "../axios/request"
-function formatIndex(n: number, len: number) {
-  if (n >= len) {
-    return 0 + (n - len)
-  }
-  if (n < 0) {
-    return len + n
-  }
-  return n
-}
+import { formatIndex } from "../utils"
+import { makePersistable } from "mobx-persist-store"
 class MusicStore {
+  // 
   currentSong = {
     au: "",
     src: "",
     name: "Apple Muisc",
     img: "",
     index: 0,
-
-
   }
+  volume: number = 0.5
+  userPlaylists: { name: string, id: string, playlist: Song[] }[] = []
+  recents: Song[] = []
+  likes: Song[] = []
   playWay = "loop"
   playQueue: Song[] = []
+
+
+  currentPagePlayList: Song[] = []
+  audioRef: HTMLAudioElement | null = null
   constructor() {
-    makeAutoObservable(this)
+    makeAutoObservable(this, {}, { autoBind: true })
+    makePersistable(this, {
+      name: "musicStorageApplemusic",
+      properties: ["currentSong", "playQueue", "volume", "playWay", "userPlaylists", "recents", "likes"]
+      , storage: window.localStorage
+    }).then((persistStroe) => {
+      console.log('persistStroe', persistStroe)
+    })
+
+  }
+  setAudioRef(ref: HTMLAudioElement) {
+    this.audioRef = ref
+  }
+  setVolume(volume: number) {
+    this.volume = Math.min(100, Math.max(0, volume))
+  }
+  addLikes(song: Song) {
+    this.likes.push(song)
+  }
+  addUserPlaylists(name: string) {
+    this.userPlaylists.push({
+      name,
+      id: Math.floor(Math.random() * 100000).toString(16),
+      playlist: []
+    })
+
+  }
+  addInUserPlaylist(name: string, song: Song) {
+    this.userPlaylists.forEach((item) => {
+      if (item.name === name) {
+        item.playlist.push(song)
+      }
+    })
+  }
+  addRecents(song: Song) {
+    this.recents.push(song)
+    if (this.recents.length > 15) {
+      this.recents.shift()
+    }
   }
   async setCurrentSong(song: Song, index: number) {
     const res = await getSongUrlById(song.id)
@@ -36,9 +74,10 @@ class MusicStore {
         index
 
       }
+      this.audioRef?.play()
     })
 
-
+    this.addRecents(song)
 
   }
   switchPlayWay() {
@@ -61,6 +100,9 @@ class MusicStore {
   setPlayQueue(playlist: Song[]) {
     this.playQueue = playlist
   }
+  setCurrentPagePlayList(playlist: Song[]) {
+    this.currentPagePlayList = playlist
+  }
   addPlayQueue(song: Song, index?: number) {
     if (!index) {
       this.playQueue.push(song)
@@ -70,5 +112,6 @@ class MusicStore {
 
   }
 }
+
 const musicStore = new MusicStore()
 export { musicStore, MusicStore } 

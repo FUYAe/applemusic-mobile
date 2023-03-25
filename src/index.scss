@@ -16,7 +16,8 @@
 :root[theme="light"] {
   --font-color: #050505;
   --op-color: #05050566;
-  --bg-color: #fff;
+  --bg-color: #fafafa;
+  --pure-bg-color:#ffffff;
 
   --input-bg-color: #f0f0f2;
   --input-color: #9c9c9e;
@@ -28,8 +29,8 @@
 :root[theme="dark"] {
   --font-color: #fefefe;
   --op-color: #fefefe66;
-  --bg-color: #000;
-
+  --bg-color: #030303;
+ --pure-bg-color:#000
   --input-bg-color: #1c1c1e;
   --input-color: #8d8d8f;
   --border-color: #363636;

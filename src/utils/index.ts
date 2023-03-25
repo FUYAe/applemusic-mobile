@@ -18,31 +18,31 @@
  * @param {boolean} isAsync playmodel is async or not
  * @return {number}  a new index for playing next
  */
-export function formatIndex(switchModel: 0 | 1 | 2, index: number, length: number, isAsync: boolean): number {
-    if (switchModel == 1) {
-        if (index + 1 > length) {
+// export function formatIndex(switchModel: 0 | 1 | 2, index: number, length: number, isAsync: boolean): number {
+//     if (switchModel == 1) {
+//         if (index + 1 > length) {
 
-            return 0
-        }
-        if (index < 0) {
+//             return 0
+//         }
+//         if (index < 0) {
 
-            return length - 1
-        }
-    } else if (switchModel == 0) {
-        if (index + 1 > length) {
-            return length
-        }
-        if (index < 0) {
+//             return length - 1
+//         }
+//     } else if (switchModel == 0) {
+//         if (index + 1 > length) {
+//             return length
+//         }
+//         if (index < 0) {
 
-            return 0
-        }
-    } else if (switchModel == 2) {
-        return Math.floor(Math.random() * length)
-    }
+//             return 0
+//         }
+//     } else if (switchModel == 2) {
+//         return Math.floor(Math.random() * length)
+//     }
 
 
-    return index
-}
+//     return index
+// }
 /**
  * @description: parse lyric of string into Array [millisecond,lyric][]
  * @param {string} str raw lyric of string
@@ -172,4 +172,13 @@ export function getBase64ImageUrl(img: HTMLImageElement, callBack: any, imgType:
 }
 export function formatBetween(value: number, a: number, b: number) {
     return Math.max(a, Math.min(value, b))
+}
+export function formatIndex(n: number, len: number) {
+    if (n >= len) {
+        return 0 + (n - len)
+    }
+    if (n < 0) {
+        return len + n
+    }
+    return n
 }

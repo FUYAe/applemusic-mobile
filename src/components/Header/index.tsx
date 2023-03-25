@@ -98,14 +98,18 @@ export default observer(function Header(props: any) {
     }
   }
   function navigate(path: any) {
-    nav("/");
+    nav(path);
   }
   return (
     <div className="header">
       <div className="back">
         <svg
-          className={location.pathname == "/" ? "icon hidden" : "icon"}
-          onClick={() => navigate("/")}
+          className={
+            location.pathname == "/" || location.pathname == "/me"
+              ? "icon hidden"
+              : "icon"
+          }
+          onClick={() => navigate(-1)}
           viewBox="0 0 1024 1024"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
