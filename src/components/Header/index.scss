@@ -1,0 +1,54 @@
+.header {
+  position: fixed;
+  height: 60px;
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  justify-content: space-between;
+  background-color: var(--bg-color);
+  .more {
+    width: 60px;
+    padding: 20px;
+    .menu-wapper {
+      height: 0;
+      width: 0;
+      .menu {
+        position: absolute;
+        width: 120px;
+        top: 60px;
+        right: 0;
+        display: grid;
+        grid-template-rows: auto;
+        background-color: var(--bg-color);
+        border-radius: 4px;
+        padding: 12px 4px;
+        z-index: 100000;
+        // opacity: 0.8;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.4);
+        button:first-child {
+          border-top: 1px solid var(--border-color);
+        }
+        button {
+          text-align: left;
+          height: 26px;
+          border-bottom: 1px solid var(--border-color);
+          display: flex;
+          justify-content: space-between;
+          span {
+            display: block;
+            text-align: center;
+            padding: 2px;
+          }
+          .icon {
+            // padding: 2px;
+            position: relative;
+            // top: 4px;
+          }
+        }
+      }
+    }
+  }
+}

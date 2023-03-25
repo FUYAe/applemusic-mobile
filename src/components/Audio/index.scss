@@ -1,0 +1,77 @@
+.audio-container {
+  display: grid;
+  grid-template-rows: 30px 12px;
+  .progress-bar {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 40px auto 60px;
+    align-items: center;
+
+    .audio-progress-bar-bg {
+      position: relative;
+      height: 2px;
+      width: 100%;
+      background-color: var(--op-color);
+      .progressDot {
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 10px;
+        height: 10px;
+
+        color: #000;
+        z-index: 12000;
+      }
+      .audio-progress-bar::after {
+        content: "";
+        width: 5px;
+        height: 5px;
+        background-color: #000;
+      }
+      .audio-progress-bar {
+        width: 100%;
+        height: 3px;
+        background-color: var(--font-color);
+        height: 2px;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    }
+    .audio-time {
+      font-size: 12px;
+      margin: 0 5px;
+    }
+  }
+  .audio-control {
+    padding: 0 30px;
+    display: grid;
+    grid-template-columns: 30px repeat(3, 1fr) 30px;
+    button:active {
+      transform: scale(0.95);
+      background-color: transparent;
+    }
+    button {
+      display: block;
+      text-align: center;
+      height: 30px;
+    }
+  }
+  .audio-toggle {
+    // height: 30px;
+  }
+}
+.volume {
+  position: fixed;
+  bottom: 119px;
+  left: 0;
+  z-index: 1200;
+  width: 100%;
+  height: 20px;
+  background-color: var(--bg-color);
+  text-align: center;
+  input {
+    width: 80%;
+  }
+}

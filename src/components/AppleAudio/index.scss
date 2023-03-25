@@ -1,22 +1,42 @@
 .apple-audio {
-    height: 70px;
+  height: 70px;
 
-    display: grid;
-    grid-template-columns: 70px auto;
-    position: fixed;
-    bottom: 0;
-    left: 0;
+  display: grid;
+  grid-template-columns: 70px auto;
+  position: fixed;
+  bottom: 49px;
+  left: 0;
+  width: 100%;
+  background-color: var(--bg-color);
+  z-index: 1000;
+
+  > img {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    padding: 5px;
+  }
+
+  audio {
+    display: block;
+    padding: 0;
+    border-radius: 0;
+    background: var(--bg-color);
     width: 100%;
-    background-color: var(--bg-color);
+  }
+  .icon {
     z-index: 1000;
-
-    >img {
-        width: 60px;
-        height: 60px;
-        margin: 5px;
-    }
-
-    audio {
-        background: var(--bg-color);
-    }
+    // margin: 15px;
+  }
+  .info {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  .name-au {
+    font-size: 13px;
+  }
+  .control {
+    height: 50px;
+  }
 }

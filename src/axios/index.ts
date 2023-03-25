@@ -4,7 +4,7 @@ const baseRequest = axios.create({
     baseURL: import.meta.env.VITE_BASE_URL,
     timeout: 10000,
 });
-console.log(import.meta.env);
+
 
 baseRequest.interceptors.request.use((req) => {
     if (req.method == "get") {
