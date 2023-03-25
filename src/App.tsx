@@ -5,7 +5,7 @@ import { Toplist } from "./views/Toplist";
 import AppleAudio from "./components/AppleAudio";
 import { useState } from "react";
 import { getSongUrlById } from "./axios/request";
-import { Header } from "./components/Header";
+import Header from "./components/Header";
 import { SearchResult } from "./views/SearchResult";
 import { Tabbar } from "./components/TabBar";
 import { useStore } from "./store";

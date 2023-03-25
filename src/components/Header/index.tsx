@@ -1,10 +1,14 @@
 import { useState, useRef } from "react";
 import "./index.scss";
 import { useNavigate, useLocation } from "react-router-dom";
-export function Header(props: any) {
+import { MenuBtn } from "../MenuBtn";
+import { useStore } from "../../store";
+import { observer } from "mobx-react-lite";
+export default observer(function Header(props: any) {
   const [state, setState] = useState({
     isDark: false,
   });
+  const { store } = useStore();
   const nav = useNavigate();
   const [hidden, setHidden] = useState(true);
   const menuRef = useRef(null);
@@ -12,18 +16,9 @@ export function Header(props: any) {
     {
       title: "主题",
       icon: themeIcon(state.isDark),
-      onClick: (isDark: boolean) => {
-        setTheme(isDark);
-        setTimeout(() => {
-          setHidden(true);
-          document.removeEventListener("mousedown", mousedownListener);
-        }, 400);
+      onClick: () => {
+        setTheme(!state.isDark);
       },
-    },
-    {
-      title: "下一首播放",
-      icon: "",
-      onClick: () => {},
     },
   ];
   function isInner(
@@ -125,39 +120,26 @@ export function Header(props: any) {
           ></path>
         </svg>
       </div>
+      <span style={{ color: store._type }}>{store.msg}</span>
       <div className="more">
-        <svg
-          onClick={() => switchHidden()}
-          className="icon"
-          viewBox="0 0 1024 1024"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          p-id="2763"
-          width="24"
-          height="24"
-        >
-          <path
-            d="M415.93 223.79c0-52.98 43.004-95.984 95.984-95.984s95.984 43.004 95.984 95.984-43.004 95.984-95.984 95.984-95.984-43.003-95.984-95.984zM415.93 511.742c0-52.98 43.004-95.984 95.984-95.984s95.984 43.004 95.984 95.984-43.004 95.984-95.984 95.984-95.984-43.004-95.984-95.984zM415.93 799.866c0-52.98 43.004-95.984 95.984-95.984s95.984 43.003 95.984 95.984-43.004 95.983-95.984 95.983-95.984-43.175-95.984-95.983z"
-            p-id="2764"
-            fill="#ff213d"
-          ></path>
-        </svg>
-        <div className={hidden ? "hidden menu-wapper" : "menu-wapper"}>
-          <div className="menu" ref={menuRef}>
-            {menuOptions.map((item) => {
-              return (
-                <button
-                  key={item.title}
-                  onClick={() => item.onClick(!state.isDark)}
-                >
-                  <span>{item.title}</span>
-                  <span> {item.icon}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
+        <MenuBtn menuOptions={menuOptions}>
+          <svg
+            className="icon"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="2763"
+            width="24"
+            height="24"
+          >
+            <path
+              d="M415.93 223.79c0-52.98 43.004-95.984 95.984-95.984s95.984 43.004 95.984 95.984-43.004 95.984-95.984 95.984-95.984-43.003-95.984-95.984zM415.93 511.742c0-52.98 43.004-95.984 95.984-95.984s95.984 43.004 95.984 95.984-43.004 95.984-95.984 95.984-95.984-43.004-95.984-95.984zM415.93 799.866c0-52.98 43.004-95.984 95.984-95.984s95.984 43.003 95.984 95.984-43.004 95.983-95.984 95.983-95.984-43.175-95.984-95.983z"
+              p-id="2764"
+              fill="#ff213d"
+            ></path>
+          </svg>
+        </MenuBtn>
       </div>
     </div>
   );
-}
+});

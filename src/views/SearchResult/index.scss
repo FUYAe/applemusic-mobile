@@ -75,12 +75,13 @@
 .result-item {
   .res-space {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 100px);
     // background-color: azure;
     padding: 5px;
   }
   .s-item {
     display: grid;
+    width: 90px;
     grid-template-rows: auto 40px;
     padding: 5px;
     box-shadow: 0 0.5px 4px 0 rgba(0, 0, 0, 0.1);

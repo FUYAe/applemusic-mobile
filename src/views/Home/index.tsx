@@ -76,30 +76,31 @@ export function Home(props: ComponentProps<any>) {
           type="text"
         />
         <div className="suggestion">
-          {suggestion?.order.map((item) => {
-            return (
-              <div className="suggestion-class" key={item}>
-                <span className="suggestion-title">{getTitle(item)}</span>
-                {(suggestion[item as keyof typeof suggestion] as any[]).map(
-                  (suggestion) => {
-                    return (
-                      <div
-                        onClick={() => searchByClick(suggestion?.name)}
-                        className="suggestion-item"
-                        key={suggestion.id}
-                      >
-                        <span>{suggestion?.name}</span>
-                        &nbsp;&nbsp;&nbsp;
-                        <span className="au">
-                          {item === "songs" && suggestion?.artists[0].name}
-                        </span>
-                      </div>
-                    );
-                  }
-                )}
-              </div>
-            );
-          })}
+          {suggestion?.order &&
+            suggestion?.order.map((item) => {
+              return (
+                <div className="suggestion-class" key={item}>
+                  <span className="suggestion-title">{getTitle(item)}</span>
+                  {(suggestion[item as keyof typeof suggestion] as any[]).map(
+                    (suggestion) => {
+                      return (
+                        <div
+                          onClick={() => searchByClick(suggestion?.name)}
+                          className="suggestion-item"
+                          key={suggestion.id}
+                        >
+                          <span>{suggestion?.name}</span>
+                          &nbsp;&nbsp;&nbsp;
+                          <span className="au">
+                            {item === "songs" && suggestion?.artists[0].name}
+                          </span>
+                        </div>
+                      );
+                    }
+                  )}
+                </div>
+              );
+            })}
         </div>
       </div>
       <div className="toplist-title">排行榜</div>

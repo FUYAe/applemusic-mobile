@@ -1,5 +1,9 @@
 import React, { ComponentProps, useEffect, useState } from "react";
-import { getPlayList, getSearchR } from "../../axios/request";
+import {
+  getMultimatchSearchR,
+  getPlayList,
+  getSearchR,
+} from "../../axios/request";
 import { useLocation, useSearchParams, useNavigate } from "react-router-dom";
 import "./index.scss";
 import { useStore } from "../../store";
@@ -21,8 +25,18 @@ export function SearchResult(props: any) {
     state: Suggestion;
   } = useLocation();
   let navigate = useNavigate();
+  const menuOptions = [
+    {
+      title: "下一首播放",
+      icon: "",
+      onClick: () => {},
+    },
+  ];
   useEffect(() => {
     console.log(location);
+    getMultimatchSearchR(searchSarams.get("kw") as any).then((res) => {
+      console.log("----", res.data);
+    });
     state.songs.length ||
       getSearchR(searchSarams.get("kw") as any).then((res) => {
         let songs = res.data.result.songs;
@@ -72,16 +86,14 @@ export function SearchResult(props: any) {
             <div className="result-item" key={item}>
               <div className="title">{getTitle(item)}</div>
               <div className={"res-space " + item}>
-                <div className={"res-space " + item}>
-                  {location.state[item].map((i) => {
-                    return (
-                      <div key={i.id} className="s-item">
-                        <img src={(i as any).img1v1Url} alt="" />
-                        <div className="name">{i.name}</div>
-                      </div>
-                    );
-                  })}
-                </div>
+                {location.state[item].map((i) => {
+                  return (
+                    <div key={i.id} className="s-item">
+                      <img src={(i as any).img1v1Url} alt="" />
+                      <div className="name">{i.name}</div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           );
@@ -91,16 +103,14 @@ export function SearchResult(props: any) {
             <div className="result-item" key={item}>
               <div className="title">{getTitle(item)}</div>
               <div className={"res-space " + item}>
-                <div className={"res-space " + item}>
-                  {location.state[item].map((i) => {
-                    return (
-                      <div key={i.id} className="s-item">
-                        <img src={i.coverImgUrl} alt="" />
-                        <div className="name">{i.name}</div>
-                      </div>
-                    );
-                  })}
-                </div>
+                {location.state[item].map((i) => {
+                  return (
+                    <div key={i.id} className="s-item">
+                      <img src={i.coverImgUrl} alt="" />
+                      <div className="name">{i.name}</div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           );

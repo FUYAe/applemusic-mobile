@@ -32,6 +32,10 @@ export function getTopLists() {
         "toplist"
     )
 }
+export function getMultimatchSearchR(kw: string) {
+    return request.get("/search/multimatch?keywords=" + kw)
+
+}
 export function getSearchR(kw: string) {
     return request.get("cloudsearch?keywords=" + kw)
 
